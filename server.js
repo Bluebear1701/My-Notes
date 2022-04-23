@@ -1,5 +1,4 @@
 const express = require("express");
-// const {} = require("process");
 const notes = require("./db/db.json")
 const path = require ('path')
 
@@ -21,11 +20,12 @@ app.get('/notes', (req,res) => {
 app.get('/api/notes', (req,res) => {
     res.json(notes);
     console.log("reach")
-})
+});
+
 app.post('/api/notes', (req,res) => {
     req.body.id = notes.length.toString();
-    console.log(body)
-})
+    console.log(req.body)
+});
 
 
 app.get('*', (req,res) => {
