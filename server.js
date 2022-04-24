@@ -21,20 +21,21 @@ app.get('/api/notes', (req, res) => {
     res.json(notes);
     console.log("reach")
 });
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname + "/public/index.html"));
-});
-
-app.get("/api/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, + "/db.json"));
-});
-
 app.post('/api/notes', (req, res) => {
     req.body.id = notes.length.toString();
     console.log(req.body)
+    
+    res.json(req.body);
+
+    
+    app.get("/api/notes", function(req, res) {
+        res.sendFile(path.join(__dirname, + "/db.json"));
+    });
+    
+    
 });
-// creating POST routes
+
+
 app.post("/api/notes", function(req, res) {
     fs.readFile(path.join(__dirname, + "/db.json"), "utf8", function(error, response) {
         if (error) {
@@ -56,6 +57,9 @@ app.post("/api/notes", function(req, res) {
     });
 });
 
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname + "/public/index.html"));
+});
 app.listen(PORT, () => {
     console.log(`API server now on port ${PORT}!`);
 });
