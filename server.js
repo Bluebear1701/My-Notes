@@ -34,11 +34,18 @@ app.get("/api/notes", function (req, res) {
     res.sendFile(path.join(__dirname, + "/db.json"));
 });
 
-
-
+function createNewNote(body, notes) {
+    const note = body;
+    notes.push(note);
+    fs.writeFileSync(
+      path.join(__dirname, "/db.json"),
+      JSON.stringify({ notes: note }, null, 2)
+    );
+    return note;
+  }
 
 app.post("/api/notes", function (req, res) {
-    fs.readFile(path.join(__dirname, + "/db.json"), "utf8", function (error, response) {
+    fs.readFile(path.join(__dirname, + "/db.json"), function (error, response) {
         if (error) {
             console.log(error);
         }
