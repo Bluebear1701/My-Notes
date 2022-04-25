@@ -46,7 +46,7 @@ app.post("/api/notes", function (req, res) {
         }
         const notes = JSON.parse(response);
         const noteRequest = req.body;
-        uuidv4();
+        req.body.id = uuidv4();
         console.log (noteRequest)
 
         // const newNoteID = notes.length + 1;
