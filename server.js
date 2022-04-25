@@ -22,14 +22,6 @@ app.get('/api/notes', (req, res) => {
     console.log("reach")
 });
 
-app.post('/api/notes', (req, res) => {
-    req.body.id = notes.length.toString();
-    console.log(req.body)
-
-    res.json(req.body);
-});
-
-
 app.get("/api/notes", function (req, res) {
     res.sendFile(path.join(__dirname, + "/db.json"));
 });
@@ -45,7 +37,7 @@ function createNewNote(body, notes) {
   }
 
 app.post("/api/notes", function (req, res) {
-    fs.readFile(path.join(__dirname, + "/db.json"), function (error, response) {
+    fs.readFile(path.join(__dirname, + "./db/db.json"), function (error, response) {
         if (error) {
             console.log(error);
         }
@@ -58,9 +50,9 @@ app.post("/api/notes", function (req, res) {
             text: noteRequest.text
         };
         notes.push(newNote);
-        res.json(newNote);
         fs.writeFile(path.join(__dirname, + "/db.json"), JSON.stringify(notes, null, 2), function (err) {
             if (err) throw err;
+            res.json(newNote);
         });
     });
 });
